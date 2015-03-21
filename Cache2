@@ -1,0 +1,10 @@
+··Lexical Scoping
+
+··I first run the functions on my computer(bad idea), the computer Never finished its computations. 
+Found the warning message in the forum later. 
+
+··By using the functions "PatricK" posted in the forum, I really understood how the <<- operator works.
+It assigned the value we provided and set the value in 6, but in the computer  When a function from 
+that environment is called to return a value, that function first looks in the local environment 
+(where it was called) and then, when the value is not found, it looks in the environment
+where it was created, and therefore then finds the values which were assigned with.
