@@ -1,0 +1,73 @@
+##To understand this assignment I first practiced with these functions CacheSet and CacheGetSet, that got me a good idea of what I was doing:
+
+cacheSet <- function(x = NULL) {
++     cache1 <- x
++     getfunction <- function() cache1
++     setfunction <- function(y = NULL) {
++         cache1 <<- y 
++     }
++     list(get = getfunction, set = setfunction)
++ }
+> cache <- cacheSet(x = matrix(1:9, 3, 3))
+
+> cacheGetSet <- function(cache, x = NULL, ...) {
++     cache2 <- cache$get()
++     message("Checking cache...")
++     if(is.null(cache2)) {
++         message("No previously cached value.")
++     } else { 
++         print(cache2)
++     }
++     message("Setting new cached value...")
++     cache$set(x)
++     print(cache$get())
++     message("Finished.")       
++ }
+> cacheGetSet(cache, 6)
+Checking cache...
+     [,1] [,2] [,3]
+[1,]    1    4    7
+[2,]    2    5    8
+[3,]    3    6    9
+Setting new cached value...
+[1] 6
+Finished.
+
+##then I tried with the assignement functions Makecachematrix, similar to the instructions and then with CacheSolve function that I modified to match the outputs:
+
+makecachematrx <- function(x = numeric()) {
++     m <- NULL
++     print(environment())
++     evn <- environment()
++     print(parent.env(evn))
++     set <- function(y) {
++         x <<- y
++         m <<- NULL
++     }
++     get <- function() x
++     setmean <- function(mean) m <<- mean
++     getmean <- function() m
++     getevn<- function() environment()
++     list(set = set, get = get,
++          setmean = setmean,
++          getmean = getmean,
++          getevn = getevn)
++ }
+> cache <- MakeCachematrix(x = matrix(1:9, 3, 3))
+
+> cachesolve <- function(x, ...) {
++     m <- cache$getmean()
++     if(!is.null(m)) {
++         message("getting cached data")
++         return(m)
++     }
++     data <- cache$get()
++     m <- mean(data, ...)
++     cache$setmean(m)
++     m
++ }
+> 
+> cachesolve(x)
+[1] 5
+
+I think I obtained the inverse of the matrix and a good idea about the << operator.
